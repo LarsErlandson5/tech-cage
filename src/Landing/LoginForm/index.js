@@ -41,7 +41,7 @@ class LoginForm extends React.Component {
                 }
             })
             .catch(error => {
-                console.log("Oops! something went wrong, check your credentials and try again.", error);
+                console.log("Unable to log in at this time, verify your credentials and try again.", error);
 
             });
 
