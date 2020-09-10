@@ -11,12 +11,12 @@ const Landing = props => {
 
   return (
     <div>
-      <br/>
+      <br />
       <div>
-        <LoginForm setCookieApp={props.setCookieApp} handleLogin={props.handleLogin}/>
+        <LoginForm setCookieApp={props.setCookieApp} handleLogin={props.handleLogin} />
       </div>
       <div>
-        <SignUpForm handleSuccessfulAuth={handleSuccessfulAuth}/>
+        <SignUpForm handleSuccessfulAuth={handleSuccessfulAuth} />
       </div>
     </div>
   )
