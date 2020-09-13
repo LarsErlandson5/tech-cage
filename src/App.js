@@ -12,8 +12,8 @@ import './App.css';
 export default class App extends React.Component {
   render() {
     return (
-      <Router className="App">
-        <div>
+      <Router>
+        <div className="App">
           <Switch>
             <Route path="/" component={HomePage} exact />
             <Route path="/CreateTicket" component={CreateTicketPage} />
