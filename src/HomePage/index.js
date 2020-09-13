@@ -1,5 +1,8 @@
 import React from 'react'
 import { Button, Container, Row, Col } from 'react-bootstrap'
+import {
+  Link
+} from "react-router-dom";
 import './index.css'
 
 export default class HomePage extends React.Component {
@@ -8,10 +11,14 @@ export default class HomePage extends React.Component {
       <Container>
         <Row>
           <Col>
-            <Button variant="primary" size="lg" onClick={() => this.props.onClick('displayCreateTicket')}>Create a Ticket</Button>
+            <Link to="/CreateTicket">
+              <Button variant="primary" size="lg">Create a Ticket</Button>
+            </Link>
           </Col>
           <Col>
-            <Button variant="primary" size="lg" onClick={() => this.props.onClick('displayTicketList')}>List Tickets</Button>
+            <Link to="/Queue">
+              <Button variant="primary" size="lg">List Tickets</Button>
+            </Link>
           </Col>
         </Row>
       </Container>
