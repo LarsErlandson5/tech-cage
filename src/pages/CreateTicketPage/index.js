@@ -1,6 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Form, Container, Row, Col } from 'react-bootstrap'
+import {
+  Button,
+  Form,
+  Container,
+  Row,
+  Col
+} from 'react-bootstrap'
+import QRModal from '../../components/QRModal'
 import './index.css'
 import qr_code from '../../images/qr_code.png'
 
@@ -8,7 +15,8 @@ export default class CreateTicketPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      validated: false
+      validated: false,
+      showModal: false
     };
   }
 
@@ -21,14 +29,15 @@ export default class CreateTicketPage extends React.Component {
       this.props.history.push('/');
     }
 
-   this.setState({
-     validated: true
-   });
-  };
+    this.setState({
+      validated: true
+    });
+  }
 
   render() {
     return (
       <div>
+        <QRModal isDisplayed={this.state.showModal} /> {/* TODO: Fix issue after modal is loaded */}
         <Container>
           <Row>
             <Col>
@@ -40,7 +49,11 @@ export default class CreateTicketPage extends React.Component {
               <h4>Create Ticket</h4>
             </Col>
             <Col xs={4}>
-              <Button variant="outline-secondary" id="qr_code">
+              <Button
+                variant="outline-secondary"
+                id="qr_code"
+                onClick={() => { this.setState({ showModal: true }) }}
+              >
                 <img src={qr_code} alt={qr_code} />
               </Button>
             </Col>
