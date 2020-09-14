@@ -8,15 +8,25 @@ import {
   Row,
   Col
 } from 'react-bootstrap'
+import Ticket from './Ticket'
 
 export default class QueuePage extends React.Component {
-  onClick = (event) => {
-    this.setState({ selectedName: event }, () => {
-      this.props.history.push(`TicketDetails?id=${event}`);
-    });
+  getTickets = () => {
+    //TODO: GET tickets from service
   }
 
   render() {
+    const tickets = [
+      { id: 1, line: 'ventilation', station: 'A1', dateCreated: new Date(), priority: 'high' },
+      { id: 2, line: 'refrigeration', station: 'B2', dateCreated: new Date(), priority: 'medium' },
+      { id: 3, line: 'range', station: 'C3', dateCreated: new Date(), priority: 'medium' },
+      { id: 4, line: 'ventilation', station: 'A1', dateCreated: new Date(), priority: 'low' },
+      { id: 5, line: 'ventilation', station: 'B1', dateCreated: new Date(), priority: 'low' },
+      { id: 6, line: 'ventilation', station: 'C1', dateCreated: new Date(), priority: 'medium' },
+      { id: 7, line: 'ventilation', station: 'A2', dateCreated: new Date(), priority: 'high' },
+      { id: 8, line: 'ventilation', station: 'A1', dateCreated: new Date(), priority: 'high' }
+    ];
+
     return (
       <div>
         <Container>
@@ -34,7 +44,9 @@ export default class QueuePage extends React.Component {
             <Col>
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                  <InputGroup.Text id="filter">&#x1F50D;</InputGroup.Text>
+                  <InputGroup.Text id="filter">
+                    <span role="img" aria-label="search">&#x1F50D;</span>
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
                   placeholder="filter"
@@ -51,14 +63,7 @@ export default class QueuePage extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr onClick={this.onClick.bind(this, 'GR1310')}>
-                    <td>GR1310</td>
-                    <td>{new Date().toLocaleString('en-US')}</td>
-                  </tr>
-                  <tr>
-                    <td>G08</td>
-                    <td>{new Date().toLocaleString('en-US')}</td>
-                  </tr>
+                  <Ticket tickets={tickets} />
                 </tbody>
               </Table>
             </Col>
