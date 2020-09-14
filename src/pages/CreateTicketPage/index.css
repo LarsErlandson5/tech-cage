@@ -1,3 +1,12 @@
 .dropdown-toggle, .dropdown-menu {
     width: 100%;
 }
+
+#qr_code {
+    float: right;
+    margin-bottom: 10px;
+}
+
+#qr_code img {
+    width: 40px;
+}
