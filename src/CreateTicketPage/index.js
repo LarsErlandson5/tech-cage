@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Dropdown, Form } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import './index.css'
+import qr_code from '../images/qr_code.png'
 
 export default class CreateTicketPage extends React.Component {
   render() {
@@ -9,39 +10,44 @@ export default class CreateTicketPage extends React.Component {
       <div>
         <Link to="/">&lt; Home</Link>
         <h2>Create Ticket</h2>
+
+        Scan Code<br />
+        <Button variant="outline-secondary">
+          <img src={qr_code} alt={qr_code} />
+        </Button>
+
+        <hr />
+
         <Form>
           <Form.Group controlId="formLine">
-            <Dropdown>
-              <Dropdown.Toggle variant="secondary" id="line">Select Line</Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item>Range</Dropdown.Item>
-                <Dropdown.Item>Refrigeration</Dropdown.Item>
-                <Dropdown.Item>Ventilation</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <Form.Label>Line</Form.Label>
+            <Form.Control as="select" defaultValue="Choose...">
+              <option>Select Line...</option>
+              <option>Range</option>
+              <option>Refrigeration</option>
+              <option>Ventilation</option>
+            </Form.Control>
           </Form.Group>
 
           <Form.Group controlId="formStation">
-            <Dropdown>
-              <Dropdown.Toggle variant="secondary" id="station">Select Station</Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item>A1</Dropdown.Item>
-                <Dropdown.Item>B2</Dropdown.Item>
-                <Dropdown.Item>C3</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <Form.Label>Station</Form.Label>
+            <Form.Control as="select" defaultValue="Choose...">
+              <option>Select Station...</option>
+              <option>A1</option>
+              <option>B2</option>
+              <option>C3</option>
+            </Form.Control>
           </Form.Group>
 
           <Form.Group controlId="formPriority">
-            <Dropdown>
-              <Dropdown.Toggle variant="secondary" id="priority">Priority</Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item>Critical</Dropdown.Item>
-                <Dropdown.Item>High</Dropdown.Item>
-                <Dropdown.Item>Medium</Dropdown.Item>
-                <Dropdown.Item>Low</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <Form.Label>Priority</Form.Label>
+            <Form.Control as="select" defaultValue="Choose...">
+              <option>Select Priority...</option>
+              <option>Critical</option>
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </Form.Control>
           </Form.Group>
 
           <Form.Group controlId="formDescription">
