@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
 import './index.css'
-import qr_code from '../images/qr_code.png'
+import qr_code from '../../images/qr_code.png'
 
 export default class CreateTicketPage extends React.Component {
   render() {

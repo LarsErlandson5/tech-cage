@@ -1,8 +1,8 @@
 import React from 'react';
-import HomePage from './HomePage'
-import CreateTicketPage from './CreateTicketPage'
-import TicketDetailsPage from './TicketDetailsPage'
-import QueuePage from './QueuePage'
+import HomePage from './pages/HomePage'
+import CreateTicketPage from './pages/CreateTicketPage'
+import TicketDetailsPage from './pages/TicketDetailsPage'
+import QueuePage from './pages/QueuePage'
 import {
   BrowserRouter as Router,
   Switch,
