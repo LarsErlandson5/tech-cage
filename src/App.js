@@ -1,6 +1,7 @@
 import React from 'react';
 import HomePage from './HomePage'
 import CreateTicketPage from './CreateTicketPage'
+import TicketDetailsPage from './TicketDetailsPage'
 import QueuePage from './QueuePage'
 import {
   BrowserRouter as Router,
@@ -18,6 +19,7 @@ export default class App extends React.Component {
             <Route path="/" component={HomePage} exact />
             <Route path="/CreateTicket" component={CreateTicketPage} />
             <Route path="/Queue" component={QueuePage} />
+            <Route path="/TicketDetails" component={TicketDetailsPage} />
           </Switch>
         </div>
       </Router>

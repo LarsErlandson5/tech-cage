@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom'
 import { FormControl, InputGroup, Table } from 'react-bootstrap'
 
 export default class QueuePage extends React.Component {
+  onClick = (event) => {
+    this.setState({ selectedName: event }, () => {
+      this.props.history.push(`TicketDetails?id=${event}`);
+    });
+  }
+
   render() {
     return (
       <div>
@@ -28,7 +34,7 @@ export default class QueuePage extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr onClick={this.onClick.bind(this, 'GR1310')}>
               <td>GR1310</td>
               <td>{new Date().toLocaleString('en-US')}</td>
             </tr>
