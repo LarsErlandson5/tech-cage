@@ -16,8 +16,27 @@ export default class CreateTicketPage extends React.Component {
     super(props);
     this.state = {
       validated: false,
-      showModal: false
+      showModal: false,
+      line: this.getValueFromQueryString('line'),
+      station: this.getValueFromQueryString('station'),
+      priority: this.getValueFromQueryString('priority')
     };
+
+    console.log(this.props.location.search);
+  }
+
+  getValueFromQueryString(key) {
+    const queryString = window.location.search.substring(1);
+    const keyValuePairs = queryString.split('&');
+
+    for(let item of keyValuePairs) {
+      let keyValue = item.split('=');
+      if (decodeURIComponent(keyValue[0]) === key) {
+        return decodeURIComponent(keyValue[1]);
+      }
+    };
+    
+    return;
   }
 
   handleSubmit = (event) => {
@@ -63,34 +82,43 @@ export default class CreateTicketPage extends React.Component {
               <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
                 <Form.Group controlId="formLine">
                   <Form.Label>Line</Form.Label>
-                  <Form.Control as="select" required>
+                  <Form.Control
+                    as="select"
+                    defaultValue={this.state.line}
+                    required>
                     <option value=''>Select Line...</option>
-                    <option>Range</option>
-                    <option>Refrigeration</option>
-                    <option>Ventilation</option>
+                    <option value='range'>Range</option>
+                    <option value='refrigeration'>Refrigeration</option>
+                    <option value='ventilation'>Ventilation</option>
                   </Form.Control>
                   <Form.Control.Feedback type="invalid">Please select a Line.</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formStation">
                   <Form.Label>Station</Form.Label>
-                  <Form.Control as="select" required>
+                  <Form.Control
+                    as="select"
+                    defaultValue={this.state.station}
+                    required>
                     <option value='' >Select Station...</option>
-                    <option>A1</option>
-                    <option>B2</option>
-                    <option>C3</option>
+                    <option value='a1'>A1</option>
+                    <option value='b2'>B2</option>
+                    <option value='c3'>C3</option>
                   </Form.Control>
                   <Form.Control.Feedback type="invalid">Please select a Station.</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formPriority">
                   <Form.Label>Priority</Form.Label>
-                  <Form.Control as="select" required>
+                  <Form.Control
+                    as="select"
+                    defaultValue={this.state.priority}
+                    required>
                     <option value=''>Select Priority...</option>
-                    <option>Critical</option>
-                    <option>High</option>
-                    <option>Medium</option>
-                    <option>Low</option>
+                    <option value='critical'>Critical</option>
+                    <option value='high'>High</option>
+                    <option value='medium'>Medium</option>
+                    <option value='low'>Low</option>
                   </Form.Control
                   ><Form.Control.Feedback type="invalid">Please select a Priority.</Form.Control.Feedback>
                 </Form.Group>
