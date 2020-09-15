@@ -18,9 +18,9 @@ class Ticket extends React.Component {
   render() {
     return (
       this.props.tickets.map((ticket) =>
-        <tr key={ticket.id.toString()} onClick={this.onClick.bind(this, ticket.id)}>
-          <td>{`${ticket.station}${ticket.id.toString()}`}</td>
-          <td>{ticket.dateCreated.toLocaleString('en-US')}</td>
+        <tr key={ticket._id.toString()} onClick={this.onClick.bind(this, ticket._id)}>
+          <td>{ticket.station}</td>
+          <td>{/* {ticket.dateCreated.toLocaleString('en-US')} */}</td>
         </tr>
       )
     )

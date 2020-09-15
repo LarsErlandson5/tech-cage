@@ -8,25 +8,27 @@ import {
   Row,
   Col
 } from 'react-bootstrap'
+import axios from 'axios'
 import Ticket from './Ticket'
 
 export default class QueuePage extends React.Component {
-  getTickets = () => {
-    //TODO: GET tickets from service
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tickets: []
+    }
+
+    this.getTickets();
+  }
+
+  getTickets = async () => {
+    let tickets = await axios.get('http://localhost:3001/api/getTickets');
+
+    this.setState({ tickets: tickets.data })
   }
 
   render() {
-    const tickets = [
-      { id: 1, line: 'ventilation', station: 'A1', dateCreated: new Date(), priority: 'high' },
-      { id: 2, line: 'refrigeration', station: 'B2', dateCreated: new Date(), priority: 'medium' },
-      { id: 3, line: 'range', station: 'C3', dateCreated: new Date(), priority: 'medium' },
-      { id: 4, line: 'ventilation', station: 'A1', dateCreated: new Date(), priority: 'low' },
-      { id: 5, line: 'ventilation', station: 'B1', dateCreated: new Date(), priority: 'low' },
-      { id: 6, line: 'ventilation', station: 'C1', dateCreated: new Date(), priority: 'medium' },
-      { id: 7, line: 'ventilation', station: 'A2', dateCreated: new Date(), priority: 'high' },
-      { id: 8, line: 'ventilation', station: 'A1', dateCreated: new Date(), priority: 'high' }
-    ];
-
     return (
       <div>
         <Container>
@@ -63,7 +65,7 @@ export default class QueuePage extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  <Ticket tickets={tickets} />
+                  <Ticket tickets={this.state.tickets} />
                 </tbody>
               </Table>
             </Col>
