@@ -12,8 +12,8 @@ app.get('/api/health', (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/api/getTickets', async (req, res, next) => {
-  await Ticket.find({}, function (err, docs) {
+app.get('/api/getTickets', (req, res, next) => {
+  Ticket.find({}, function (err, docs) {
     if (err) {
       next(err);
     } else {
@@ -31,6 +31,16 @@ app.post('/api/createTicket', (req, res, next) => {
     }
   });
 });
+
+// TODO: /api/getTicket (GET ticket by ID)
+
+// TODO: /api/getProductionLines (and build model)
+
+// TODO: /api/getStations (and build model)
+
+// TODO: /api/updateTicket (id, status, description, resolution)
+
+// TODO: /api/notify (used to notify TE via email[SMTP])
 
 app.listen(3001, () =>
   console.log('Express server is running on localhost:3001')
