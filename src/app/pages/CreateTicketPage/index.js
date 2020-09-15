@@ -8,6 +8,7 @@ import {
   Col
 } from 'react-bootstrap'
 import QRModal from '../../components/QRModal'
+import axios from 'axios'
 import './index.css'
 import qr_code from '../../images/qr_code.png'
 
@@ -19,10 +20,9 @@ export default class CreateTicketPage extends React.Component {
       showModal: false,
       line: this.getValueFromQueryString('line'),
       station: this.getValueFromQueryString('station'),
-      priority: this.getValueFromQueryString('priority')
+      priority: this.getValueFromQueryString('priority'),
+      description: ''
     };
-
-    console.log(this.props.location.search);
   }
 
   getValueFromQueryString(key) {
@@ -35,16 +35,22 @@ export default class CreateTicketPage extends React.Component {
         return decodeURIComponent(keyValue[1]);
       }
     };
-    
+
     return;
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     } else {
+      await axios.post('http://localhost:3001/api/createTicket', {
+        line: this.state.line,
+        station: this.state.station,
+        priority: this.state.priority,
+        description: this.state.description
+      });
       this.props.history.push('/');
     }
 
