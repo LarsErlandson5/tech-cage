@@ -29,7 +29,7 @@ export default class CreateTicketPage extends React.Component {
     const queryString = window.location.search.substring(1);
     const keyValuePairs = queryString.split('&');
 
-    for(let item of keyValuePairs) {
+    for (let item of keyValuePairs) {
       let keyValue = item.split('=');
       if (decodeURIComponent(keyValue[0]) === key) {
         return decodeURIComponent(keyValue[1]);
@@ -39,19 +39,25 @@ export default class CreateTicketPage extends React.Component {
     return;
   }
 
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
   handleSubmit = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      await axios.post('http://localhost:3001/api/createTicket', {
+
+    if (form.checkValidity()) {
+      let ticket = await axios.post('http://localhost:3001/api/createTicket', {
         line: this.state.line,
         station: this.state.station,
-        priority: this.state.priority,
+        priority: parseInt(this.state.priority),
         description: this.state.description
       });
-      this.props.history.push('/');
+
+      this.props.history.push(`/TicketDetails?id=${ticket.data}`);
     }
 
     this.setState({
@@ -86,12 +92,15 @@ export default class CreateTicketPage extends React.Component {
           <Row>
             <Col>
               <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-                <Form.Group controlId="formLine">
+                <Form.Group controlId="line">
                   <Form.Label>Line</Form.Label>
                   <Form.Control
                     as="select"
+                    name="line"
                     defaultValue={this.state.line}
-                    required>
+                    onChange={this.handleChange}
+                    required
+                  >
                     <option value=''>Select Line...</option>
                     <option value='range'>Range</option>
                     <option value='refrigeration'>Refrigeration</option>
@@ -100,13 +109,16 @@ export default class CreateTicketPage extends React.Component {
                   <Form.Control.Feedback type="invalid">Please select a Line.</Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="formStation">
+                <Form.Group controlId="station">
                   <Form.Label>Station</Form.Label>
                   <Form.Control
                     as="select"
+                    name="station"
                     defaultValue={this.state.station}
-                    required>
-                    <option value='' >Select Station...</option>
+                    onChange={this.handleChange}
+                    required
+                  >
+                    <option value=''>Select Station...</option>
                     <option value='a1'>A1</option>
                     <option value='b2'>B2</option>
                     <option value='c3'>C3</option>
@@ -114,24 +126,32 @@ export default class CreateTicketPage extends React.Component {
                   <Form.Control.Feedback type="invalid">Please select a Station.</Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="formPriority">
+                <Form.Group controlId="priority">
                   <Form.Label>Priority</Form.Label>
                   <Form.Control
                     as="select"
+                    name="priority"
                     defaultValue={this.state.priority}
+                    onChange={this.handleChange}
                     required>
                     <option value=''>Select Priority...</option>
-                    <option value='critical'>Critical</option>
-                    <option value='high'>High</option>
-                    <option value='medium'>Medium</option>
-                    <option value='low'>Low</option>
-                  </Form.Control
-                  ><Form.Control.Feedback type="invalid">Please select a Priority.</Form.Control.Feedback>
+                    <option value='1'>Critical</option>
+                    <option value='2'>High</option>
+                    <option value='3'>Medium</option>
+                    <option value='4'>Low</option>
+                  </Form.Control>
+                  <Form.Control.Feedback type="invalid">Please select a Priority.</Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="formDescription">
+                <Form.Group controlId="description">
                   <Form.Label>Description</Form.Label>
-                  <Form.Control as="textarea" rows="5" required />
+                  <Form.Control
+                    as="textarea"
+                    name="description"
+                    rows="5"
+                    onChange={this.handleChange}
+                    required
+                  />
                   <Form.Control.Feedback type="invalid">Please enter a description.</Form.Control.Feedback>
                 </Form.Group>
 

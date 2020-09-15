@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 })
 
@@ -27,11 +28,11 @@ app.get('/api/getTickets', (req, res, next) => {
 });
 
 app.post('/api/createTicket', (req, res, next) => {
-  Ticket.create(req.body, (err) => {
+  Ticket.create(req.body, (err, ticket) => {
     if (err) {
       next(err);
     } else {
-      res.sendStatus(200);
+      res.send(ticket._id);
     }
   });
 });
