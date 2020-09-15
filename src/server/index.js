@@ -11,9 +11,11 @@ app.get('/api/tickets', (req, res) => {
 })
 
 app.post('/api/createTicket', (req, res) => {
-  let ticket = new Ticket(req.body)
-  ticket.save()
-  
+  Ticket.create(req.body, function (err) {
+    if (err) throw new Error(err);
+    // saved!
+  })
+
   res.sendStatus(200)
 })
 

@@ -7,6 +7,6 @@ const ticketSchema = new mongoose.Schema({
     description: String,
   });
 
-  const ticketModel = mongoose.model('ticket', ticketSchema);
+const Ticket = mongoose.model('Ticket', ticketSchema);
 
-  exports.ticketModel = ticketModel
+module.exports = Ticket
