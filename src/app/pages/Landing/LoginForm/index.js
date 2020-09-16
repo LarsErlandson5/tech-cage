@@ -1,29 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Axios from 'axios';
+import { useCookies } from 'react-cookie'
 
-class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: ""
-        };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-    handleSubmit(event) {
+
+
+
+function LoginForm() {
+    const [cookies, setCookie] = useCookies(['techCage'])
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState()
+    
+    const handleSubmit = (event) =>{
 
         event.preventDefault();
-        const { email, password } = this.state
-
-        Axios.post('http://localhost:5000/api/auth/',
+        
+        
+        Axios.post('http://localhost:3001/api/validate',
             {
                 email: email,
                 password: password
@@ -32,12 +26,13 @@ class LoginForm extends React.Component {
 
         )
             .then(response => {
-
-                this.props.setCookieApp(response.data.token);
-                this.props.handleLogin(event)
-
-                if (response.data.logged_in) {
-                    this.props.handleSuccessfulAuth(response.data);
+                    console.log(response, 'response')
+                if(response.data == true){
+                    //send to home page
+                    setCookie("techCage", email, {path: "/"})
+        window.location.href = "/homepage";
+                }else{
+                    alert('Incorrect!')
                 }
             })
             .catch(error => {
@@ -47,19 +42,25 @@ class LoginForm extends React.Component {
 
     }
 
-    render() {
+const onChangeEmail = (e) => {
+        setEmail(e.target.value)
+    }
+    const onChangePassword = (e) => {
+        setPassword(e.target.value)
+    }
+
         return (
             <div className="loginWrap">
                 <div className="input">
-                    <form className="input" onSubmit={this.handleSubmit}>
+                    <form className="input" onSubmit={handleSubmit}>
                         <div>
-                            <h5>Existing Mandalorian Login</h5>
+                            <h5>Login</h5>
                         </div>
                         <div>
-                            <input type="text" name="email" placeholder="Enter your email" value={this.state.email} onChange={this.handleChange} required />
+                            <input type="text" name="email" placeholder="Enter your email" onChange={(e) => onChangeEmail(e)} required />
                         </div>
                         <div>
-                            <input type="password" name="password" placeholder="Enter your Access Code" value={this.state.password} onChange={this.handleChange} required />
+                            <input type="password" name="password" placeholder="Enter your Access Code" onChange={(e) => onChangePassword(e)} required />
                         </div>
                         <div>
                             <div>
@@ -72,7 +73,7 @@ class LoginForm extends React.Component {
                 </div>
             </div>
         )
-    }
+    
 
 }
 
