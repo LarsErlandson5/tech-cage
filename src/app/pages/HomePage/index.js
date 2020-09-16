@@ -5,15 +5,14 @@ import {
   Row,
   Col
 } from 'react-bootstrap'
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import './index.css';
-
 
 export default class HomePage extends React.Component {
 
-   logOut = (name)  =>{
-    document.cookie ='techCage=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    window.location.href = "/";
+  logOut = (name) => {
+    document.cookie = 'techCage=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    window.location.href = '/';
   }
 
   render() {

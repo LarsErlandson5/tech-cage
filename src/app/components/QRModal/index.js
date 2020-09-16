@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
-export default class QRModal extends React.Component {render() {
+export default class QRModal extends React.Component {
+  render() {
     return (
       <Modal
         show={this.props.isDisplayed}

@@ -8,28 +8,27 @@ import {
   BrowserRouter as Router,
   Switch,
   Route
-} from "react-router-dom";
+} from 'react-router-dom';
 import './App.css';
 import ProtectedRoute from './ProtectedRoute';
-import { useCookies } from 'react-cookie'
 
 export default class App extends React.Component {
   constructor(){
     super()
     
     function getCookie(cname) {
-      var name = cname + "=";
+      var name = cname + '=';
       var ca = document.cookie.split(';');
       for(var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
           c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
           return c.substring(name.length, c.length);
         }
       }
-      return "";
+      return '';
     }
     console.log(getCookie('techCage'))
     this.state = {

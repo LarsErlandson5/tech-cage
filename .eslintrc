@@ -1,0 +1,16 @@
+{
+  "env": {
+    "es6": true
+  },
+  "plugins": [
+      "react"
+  ],
+  "extends": [
+      "react-app"
+  ],
+  "rules": {
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "indent": ["error", 2],
+    "arrow-spacing": "error"
+  }
+}

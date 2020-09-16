@@ -27,10 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "app": "react-scripts start",
-    "server": "nodemon ./src/server"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "server": "nodemon ./src/server",
+    "lint": "eslint"
   },
   "browserslist": {
     "production": [

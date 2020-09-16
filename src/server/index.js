@@ -43,22 +43,19 @@ app.post('/api/createTicket', (req, res, next) => {
 
 app.post('/api/validate', async (req, res) => {
   try {
+    let user = await User.find();
+    //if (!user) return res.status(400).send('Invalid email or password.');
 
-      let user = await User.find();
-      //if (!user) return res.status(400).send('Invalid email or password.');
+    //const validPassword = await bcrypt.compare(req.body.password, user.password);
 
-      //const validPassword = await bcrypt.compare(req.body.password, user.password);
-    
-      //if (!validPassword) return res.status(400).send('Invalid email or password.')
+    //if (!validPassword) return res.status(400).send('Invalid email or password.')
 
-
-      return res.send(false);
+    return res.send(false);
   }
   catch (ex) {
-      return res.status(500).send(`Internal Server Error: ${ex}`);
+    return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
-
 
 // TODO: /api/getTicket (GET ticket by ID)
 
