@@ -72,7 +72,7 @@ export default class CreateTicketPage extends React.Component {
         <Container>
           <Row>
             <Col>
-              <Link to="/">&lt; Home</Link>
+              <Link to="/HomePage">&lt; Home</Link>
             </Col>
           </Row>
           <Row>
