@@ -50,14 +50,23 @@ app.post('/api/validate', async (req, res) => {
 
     //if (!validPassword) return res.status(400).send('Invalid email or password.')
 
-    return res.send(false);
+
+    return res.send(true);
   }
   catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
 
-// TODO: /api/getTicket (GET ticket by ID)
+app.get('/api/getTicket', (req, res, next) => {
+  Ticket.find({ _id: req.query.id }, function (err, docs) {
+    if (err) {
+      next(err);
+    } else {
+      res.send(docs[0]);
+    }
+  });
+});
 
 // TODO: /api/getProductionLines (and build model)
 

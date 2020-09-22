@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {
   Alert,
@@ -11,9 +12,30 @@ import {
 import qr_code from '../../images/qr_code.png'
 
 export default class QueuePage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ticket: {}
+    }
+  }
+  componentDidMount = () => {
+    this.getTicket(this.props.history.location.state.id || new URLSearchParams(window.location.search).get('id'));
+  }
+
+  getTicket = async (id) => {
+    let ticket = await axios.get('http://localhost:3001/api/getTicket', {
+      params: {
+        id
+      }
+    });
+
+    this.setState({ ticket: ticket.data });
+  }
+
   render() {
-    return (
-      <div>
+    return this.state.ticket.hasOwnProperty('station')
+      ? <div>
         <Container>
           <Row>
             <Col>
@@ -21,7 +43,7 @@ export default class QueuePage extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col style={{margin: 'auto'}}>
+            <Col style={{ margin: 'auto' }}>
               <h4>Ticket Details</h4>
             </Col>
             <Col xs={4}>
@@ -32,7 +54,7 @@ export default class QueuePage extends React.Component {
           </Row>
           <Row>
             <Col>
-              <Alert variant='danger'>GR1310 {new Date().toLocaleDateString()}</Alert>
+              <Alert variant='danger'>{this.state.ticket.station}</Alert>
             </Col>
           </Row>
           <Row>
@@ -67,6 +89,6 @@ export default class QueuePage extends React.Component {
           </Row>
         </Container>
       </div>
-    )
+      : null // TODO: Replace 'null' with loading spinner
   }
 }

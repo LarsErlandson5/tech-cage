@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import { useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie'
 
 function LoginForm() {
-  const [setCookie] = useCookies(['techCage'])
+  const [cookies, setCookie] = useCookies(['techCage'])
   const [email, setEmail] = useState();
   const [password, setPassword] = useState()
 
   const handleSubmit = (event) => {
+
     event.preventDefault();
 
-    Axios.post('http://localhost:3001/api/validate',
-      {
-        email: email,
-        password: password
-      }
-    )
+
+    Axios.post('http://localhost:3001/api/validate', {
+      email: email,
+      password: password
+    })
       .then(response => {
         console.log(response, 'response')
-        if (response.data === true) {
+        if (response.data == true) {
           //send to home page
           setCookie('techCage', email, { path: '/' })
           window.location.href = '/homepage';

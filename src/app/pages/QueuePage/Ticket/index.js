@@ -11,7 +11,11 @@ class Ticket extends React.Component {
 
   onClick = (event) => {
     this.setState({ selectedName: event }, () => {
-      this.props.history.push(`TicketDetails?id=${event}`);
+      this.props.history.push({
+        pathname: '/TicketDetails',
+        search: `?id=${event}`,
+        state: { id: event }
+      });
     });
   }
 
