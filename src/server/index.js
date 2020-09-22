@@ -52,7 +52,7 @@ app.post('/api/validate', async (req, res) => {
       //if (!validPassword) return res.status(400).send('Invalid email or password.')
 
 
-      return res.send(false);
+      return res.send(true);
   }
   catch (ex) {
       return res.status(500).send(`Internal Server Error: ${ex}`);
