@@ -60,7 +60,17 @@ app.post('/api/validate', async (req, res) => {
 });
 
 
-// TODO: /api/getTicket (GET ticket by ID)
+app.get('/api/getTicket', (req, res, next) => {
+  console.log(req.body, req.query, req.params);
+  Ticket.find({_id:req.query.id}, function (err, docs) {
+    if (err) {
+      next(err);
+    } else {
+      res.send(docs[0]);
+    }
+  });
+});
+
 
 // TODO: /api/getProductionLines (and build model)
 
