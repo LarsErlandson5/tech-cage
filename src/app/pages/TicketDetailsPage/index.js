@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {
   Alert,
@@ -10,7 +11,34 @@ import {
 } from 'react-bootstrap'
 import qr_code from '../../images/qr_code.png'
 
+
+
 export default class QueuePage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    const urlParams = new URLSearchParams(window.location.search);
+    const ticketId = urlParams.get('id');
+    this.getTicket(ticketId)
+    this.state = {ticket:{_id: ""}}
+
+  }
+
+  getTicket = async (id) => {
+    let ticket = await axios.get('http://localhost:3001/api/getTicket', {
+      params: {
+        id
+      }
+      });
+     
+    this.setState({ ticket: ticket.data })
+     
+    console.log(this.state);
+
+
+  }
+
+
   render() {
     return (
       <div>
@@ -32,7 +60,7 @@ export default class QueuePage extends React.Component {
           </Row>
           <Row>
             <Col>
-              <Alert variant='danger'>GR1310 {new Date().toLocaleDateString()}</Alert>
+              <Alert variant='danger'>{this.state.ticket.station}</Alert>
             </Col>
           </Row>
           <Row>
