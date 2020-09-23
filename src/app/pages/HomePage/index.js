@@ -18,7 +18,16 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <Container>
-        <button onClick={this.logOut}>Log out</button>
+        <Row>
+          <Col>
+            <Button variant="secondary" onClick={this.logOut}>Sign Out</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <hr />
+          </Col>
+        </Row>
         <Row>
           <Col>
             <Link to="/CreateTicket">
