@@ -1,14 +1,14 @@
 const connectDB = require('./db');
 const express = require('express');
 const Ticket = require('./models/ticket');
-const User = require('./models/user')
+const User = require('./models/user');
+const ProductionLines = require('./models/productionLines');
 
 connectDB();
 
 const app = express();
 
 const cors = require('cors');
-const ProductionLines = require('./models/productionLines');
 app.use(cors())
 
 app.use(express.json());
@@ -69,7 +69,6 @@ app.get('/api/getTicket', (req, res, next) => {
   });
 });
 
-// TODO: /api/getProductionLines (and build model)
 app.get('/api/getProductionLines', (req, res, next) => {
   ProductionLines.find({}, function (err, docs) {
     if (err) {
@@ -79,6 +78,7 @@ app.get('/api/getProductionLines', (req, res, next) => {
     }
   });
 });
+
 // TODO: /api/getStations (and build model)
 
 // TODO: /api/updateTicket (id, status, description, resolution)
