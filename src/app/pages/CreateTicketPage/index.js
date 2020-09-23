@@ -27,7 +27,7 @@ export default class CreateTicketPage extends React.Component {
 
   componentDidMount = async () => {
     let productionLines = await axios.get('http://localhost:3001/api/getProductionLines');
-    console.log(productionLines);
+    this.setState({ productionLines: productionLines.data });
   }
 
 
@@ -72,8 +72,8 @@ export default class CreateTicketPage extends React.Component {
   }
 
   render() {
-    return (
-      <div>
+    return this.state.hasOwnProperty('productionLines')
+      ? <div>
         <QRModal isDisplayed={this.state.showModal} /> {/* TODO: Fix issue after modal is loaded */}
         <Container>
           <Row>
@@ -108,9 +108,11 @@ export default class CreateTicketPage extends React.Component {
                     required
                   >
                     <option value=''>Select Line...</option>
-                    <option value='range'>Range</option>
-                    <option value='refrigeration'>Refrigeration</option>
-                    <option value='ventilation'>Ventilation</option>
+                    {this.state.productionLines.map((line) =>
+                      <option key={line._id.toString()} value={line.Name}>
+                        {line.Name}
+                      </option>
+                    )}
                   </Form.Control>
                   <Form.Control.Feedback type="invalid">Please select a Line.</Form.Control.Feedback>
                 </Form.Group>
@@ -167,6 +169,6 @@ export default class CreateTicketPage extends React.Component {
           </Row>
         </Container>
       </div>
-    )
+      : null
   }
 }
