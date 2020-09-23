@@ -37,15 +37,13 @@ export default class TicketDetailsPage extends React.Component {
   postSlackNotification = async (e) => {
     e.preventDefault();
 
-    const webhookUrl = 'https://hooks.slack.com/services/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';
-
     const { line, station, status, priority, description } = { ...this.state.ticket };
 
     const data = {
-      'text': `Ticket Alert: ${line} \n${station} \n${status} \n${priority} \n${description}`
+      'text': `Ticket Alert:\nLine: ${line}\nStation: ${station}\nStatus: ${status}\n Priority: ${priority}\n Description: ${description}`
     }
 
-    let res = await axios.post(webhookUrl, JSON.stringify(data), {
+    let res = await axios.post(process.env.REACT_APP_SLACK_WEBHOOK, JSON.stringify(data), {
       withCredentials: false,
       transformRequest: [(data, headers) => {
         delete headers.post['Content-Type']
