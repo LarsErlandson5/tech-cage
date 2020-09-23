@@ -50,14 +50,14 @@ export default class CreateTicketPage extends React.Component {
     const form = event.currentTarget;
 
     if (form.checkValidity()) {
-      let ticket = await axios.post('http://localhost:3001/api/createTicket', {
+        await axios.post('http://localhost:3001/api/createTicket', {
         line: this.state.line,
         station: this.state.station,
         priority: parseInt(this.state.priority),
         description: this.state.description
       });
 
-      this.props.history.push(`/TicketDetails?id=${ticket.data}`);
+      this.props.history.push(`/TicketList`);
     }
 
     this.setState({

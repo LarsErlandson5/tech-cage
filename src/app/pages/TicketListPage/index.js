@@ -39,7 +39,7 @@ export default class TicketListPage extends React.Component {
           </Row>
           <Row>
             <Col>
-              <h4>Ticket Queue</h4>
+              <h4>Ticket List</h4>
             </Col>
           </Row>
           <Row>
@@ -61,7 +61,9 @@ export default class TicketListPage extends React.Component {
                 <thead>
                   <tr>
                     <th>Ticket</th>
-                    <th>Date/Time</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Last Update</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -39,7 +39,7 @@ export default class ViewTicket extends React.Component {
         <Container>
           <Row>
             <Col>
-              <Link to="/QueuePage">&lt; Back</Link>
+              <Link to="/TicketList">&lt; Back</Link>
             </Col>
           </Row>
           <Row>
