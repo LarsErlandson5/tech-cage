@@ -11,7 +11,7 @@ import {
 import axios from 'axios'
 import Ticket from './Ticket'
 
-export default class QueuePage extends React.Component {
+export default class TicketListPage extends React.Component {
   constructor(props) {
     super(props);
 

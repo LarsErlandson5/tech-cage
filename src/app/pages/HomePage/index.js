@@ -26,7 +26,7 @@ export default class HomePage extends React.Component {
             </Link>
           </Col>
           <Col>
-            <Link to="/Queue">
+            <Link to="/TicketList">
               <Button variant="primary" size="lg">List Tickets</Button>
             </Link>
           </Col>

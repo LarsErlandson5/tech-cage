@@ -2,7 +2,7 @@ import React from 'react';
 import HomePage from './pages/HomePage'
 import CreateTicketPage from './pages/CreateTicketPage'
 import TicketDetailsPage from './pages/TicketDetailsPage'
-import QueuePage from './pages/QueuePage'
+import TicketListPage from './pages/TicketListPage'
 import LoginForm from './pages/Landing/LoginForm'
 import {
   BrowserRouter as Router,
@@ -42,7 +42,7 @@ export default class App extends React.Component {
         <div className="App">
           <Switch>
             <ProtectedRoute exact path='/CreateTicket' user={this.state.userinfo} component={CreateTicketPage} />
-            <ProtectedRoute exact path='/Queue' user={this.state.userinfo} component={QueuePage} />
+            <ProtectedRoute exact path='/TicketList' user={this.state.userinfo} component={TicketListPage} />
             <ProtectedRoute exact path='/TicketDetails' user={this.state.userinfo} component={TicketDetailsPage} />
             <ProtectedRoute exact path='/HomePage' user={this.state.userinfo} component={HomePage} />
             <Route path="/" component={LoginForm} exact />

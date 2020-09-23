@@ -5,9 +5,11 @@ const ticketSchema = new mongoose.Schema({
   station: { type: String, required: true },
   priority: { type: Number, required: true },
   description: { type: String, required: true },
-  repairdescription: { type: String },
-  createddate: { type: Date, required: true, default: Date },
-  lastupdateddate: { type: Date, required: true, default: Date }
+  repairDescription: { type: String },
+  createdDate: { type: Date, required: true, default: Date },
+  lastUpdatedDate: { type: Date, required: true, default: Date },
+  status: { type: String, default: "Open" }
+
 });
 
 const Ticket = mongoose.model('Ticket', ticketSchema);
