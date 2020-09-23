@@ -61,8 +61,8 @@ export default class ViewTicket extends React.Component {
             <Col>
               <Form>
                 <Form.Group controlId="formDescription">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control as="textarea" rows="5" />
+                  <Form.Label>Description:</Form.Label>
+                  <h5>{this.state.ticket.description}</h5>
                 </Form.Group>
 
                 <Form.Group controlId="formRepair">
