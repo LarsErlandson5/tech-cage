@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
+  Button,
   Container,
   Row,
-  Col
+  Col,
+  Form
 } from 'react-bootstrap'
 import Axios from 'axios';
-import { useCookies } from 'react-cookie'
+import { Cookies } from 'react-cookie'
 
-function LoginForm() {
-  const [cookies, setCookie] = useCookies(['techCage']) // eslint-disable-line
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState()
-
-  const handleSubmit = (event) => {
+export default class LoginPage extends React.Component {
+  handleSubmit = (event) => {
     event.preventDefault();
+    event.stopPropagation();
 
     Axios.post('http://localhost:3001/api/validate', {
-      email: email,
-      password: password
+      email: this.state.email,
+      password: this.state.password
     })
       .then(response => {
         if (response.data === true) {
-          setCookie('techCage', email, { path: '/' })
-          window.location.href = '/homepage';
+          Cookies.set('techCage', this.state.email, '/')
+          window.location.href = '/HomePage';
         } else {
           alert('Incorrect!')
         }
@@ -32,44 +31,43 @@ function LoginForm() {
       });
   }
 
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value)
+  onChangeEmail = (e) => {
+    this.setState({
+      email: e.target.value
+    })
   }
 
-  const onChangePassword = (e) => {
-    setPassword(e.target.value)
+  onChangePassword = (e) => {
+    this.setState({
+      password: e.target.value
+    })
   }
 
-  return (
-    <Container>
-      <Row>
-        <Col>
-          <div className="loginWrap">
-            <div className="input">
-              <form className="input" onSubmit={handleSubmit}>
-                <div>
-                  <h5>Login</h5>
-                </div>
-                <div>
-                  <input type="text" name="email" placeholder="Enter your email" onChange={(e) => onChangeEmail(e)} required />
-                </div>
-                <div>
-                  <input type="password" name="password" placeholder="Enter your Access Code" onChange={(e) => onChangePassword(e)} required />
-                </div>
-                <div>
-                  <div>
-                    <span>
-                      <button className="submit" type="submit">Authorize</button>
-                    </span>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </Col>
-      </Row>
-    </Container>
-  )
+  render() {
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <h4>Login</h4>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" onChange={this.onChangeEmail} />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" onChange={this.onChangePassword} />
+              </Form.Group>
+              <Button variant="primary" type="submit">Sign In</Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    )
+  }
 }
-
-export default LoginForm
