@@ -9,6 +9,7 @@ connectDB();
 const app = express();
 
 const cors = require('cors');
+const TestStations = require('./models/testStations');
 app.use(cors())
 
 app.use(express.json());
@@ -80,7 +81,15 @@ app.get('/api/getProductionLines', (req, res, next) => {
 });
 
 // TODO: /api/getStations (and build model)
-
+app.get('/api/getTestStations', (req, res, next) => {
+  TestStations.find({}, function (err, docs) {
+    if (err) {
+      next(err);
+    } else {
+      res.send(docs);
+    }
+  });
+});
 // TODO: /api/updateTicket (id, status, description, resolution)
 
 // TODO: /api/notify (used to notify TE via email[SMTP])
