@@ -7,12 +7,14 @@ import {
   Form
 } from 'react-bootstrap'
 import Axios from 'axios';
-import { Cookies } from 'react-cookie'
+import Cookies from 'universal-cookie'
 
 export default class LoginPage extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
+
+    const cookies = new Cookies();
 
     Axios.post('http://localhost:3001/api/validate', {
       email: this.state.email,
@@ -20,7 +22,7 @@ export default class LoginPage extends React.Component {
     })
       .then(response => {
         if (response.data === true) {
-          Cookies.set('techCage', this.state.email, '/')
+          cookies.set('techCage', this.state.email, { path: '/' });
           window.location.href = '/HomePage';
         } else {
           alert('Incorrect!')
