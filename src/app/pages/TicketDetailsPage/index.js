@@ -34,6 +34,32 @@ export default class TicketDetailsPage extends React.Component {
     this.setState({ ticket: ticket.data });
   }
 
+  postSlackNotification = async (e) => {
+    e.preventDefault();
+
+    const webhookUrl = 'https://hooks.slack.com/services/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';
+
+    const { line, station, status, priority, description } = { ...this.state.ticket };
+
+    const data = {
+      'text': `Ticket Alert: ${line} \n${station} \n${status} \n${priority} \n${description}`
+    }
+
+    let res = await axios.post(webhookUrl, JSON.stringify(data), {
+      withCredentials: false,
+      transformRequest: [(data, headers) => {
+        delete headers.post['Content-Type']
+        return data
+      }]
+    });
+
+    if (res.status === 200) {
+      alert('Message Sent!')
+    } else {
+      alert('There was an error.  Please try again later.')
+    }
+  }
+
   render() {
     return this.state.ticket.hasOwnProperty('station')
       ? <div>
@@ -63,7 +89,12 @@ export default class TicketDetailsPage extends React.Component {
               <Form>
                 <Form.Group controlId="formDescription">
                   <Form.Label>Description:</Form.Label>
-                  <Form.Control as="textarea" rows="5" disabled value={this.state.ticket.description} />
+                  <Form.Control
+                    as="textarea"
+                    rows="5"
+                    disabled
+                    value={this.state.ticket.description}
+                  />
                 </Form.Group>
 
                 <Form.Group controlId="formRepair">
@@ -75,12 +106,19 @@ export default class TicketDetailsPage extends React.Component {
                   <Row>
                     <Col>
                       <Link to="/CreateTicket">
-                        <Button variant="primary" size="lg">Notify TE</Button>
+                        <Button
+                          variant="primary"
+                          size="lg"
+                          onClick={this.postSlackNotification}
+                        >Notify TE</Button>
                       </Link>
                     </Col>
                     <Col>
                       <Link to="/Queue">
-                        <Button variant="primary" size="lg">Complete</Button>
+                        <Button
+                          variant="primary"
+                          size="lg"
+                        >Complete</Button>
                       </Link>
                     </Col>
                   </Row>
