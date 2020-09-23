@@ -25,6 +25,12 @@ export default class CreateTicketPage extends React.Component {
     };
   }
 
+  componentDidMount = async () => {
+    let productionLines = await axios.get('http://localhost:3001/api/getProductionLines');
+    console.log(productionLines);
+  }
+
+
   getValueFromQueryString(key) {
     const queryString = window.location.search.substring(1);
     const keyValuePairs = queryString.split('&');
@@ -50,7 +56,7 @@ export default class CreateTicketPage extends React.Component {
     const form = event.currentTarget;
 
     if (form.checkValidity()) {
-        await axios.post('http://localhost:3001/api/createTicket', {
+      await axios.post('http://localhost:3001/api/createTicket', {
         line: this.state.line,
         station: this.state.station,
         priority: parseInt(this.state.priority),
