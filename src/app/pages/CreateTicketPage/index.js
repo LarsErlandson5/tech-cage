@@ -26,7 +26,7 @@ export default class CreateTicketPage extends React.Component {
   }
 
   componentDidMount = async () => {
-    let productionLines = await axios.get('http://localhost:3001/api/getProductionLines');
+    let productionLines = await axios.get(`${process.env.REACT_APP_SERVER}/api/getProductionLines`);
     this.setState({ productionLines: productionLines.data });
   }
 
@@ -71,7 +71,7 @@ export default class CreateTicketPage extends React.Component {
     const form = event.currentTarget;
 
     if (form.checkValidity()) {
-      await axios.post('http://localhost:3001/api/createTicket', {
+      await axios.post(`${process.env.REACT_APP_SERVER}/api/createTicket`, {
         line: this.state.line,
         station: this.state.station,
         priority: parseInt(this.state.priority),

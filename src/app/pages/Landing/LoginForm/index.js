@@ -16,7 +16,7 @@ export default class LoginPage extends React.Component {
 
     const cookies = new Cookies();
 
-    Axios.post('http://localhost:3001/api/validate', {
+    Axios.post(`${process.env.REACT_APP_SERVER}/api/validate`, {
       email: this.state.email,
       password: this.state.password
     })

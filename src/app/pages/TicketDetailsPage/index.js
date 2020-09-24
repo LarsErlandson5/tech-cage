@@ -26,7 +26,7 @@ export default class TicketDetailsPage extends React.Component {
   }
 
   getTicket = async (id) => {
-    let ticket = await axios.get('http://localhost:3001/api/getTicket', {
+    let ticket = await axios.get(`${process.env.REACT_APP_SERVER}/api/getTicket`, {
       params: {
         id
       }

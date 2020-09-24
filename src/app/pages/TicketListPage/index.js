@@ -24,7 +24,7 @@ export default class TicketListPage extends React.Component {
   }
 
   getTickets = async () => {
-    let tickets = await axios.get('http://localhost:3001/api/getTickets');
+    let tickets = await axios.get(`${process.env.REACT_APP_SERVER}/api/getTickets`);
 
     this.setState({ tickets: tickets.data });
   }
@@ -33,7 +33,7 @@ export default class TicketListPage extends React.Component {
     if (event.key === 'Enter') {
       const value = event.target.value.split(':');
 
-      let tickets = await axios.post('http://localhost:3001/api/getTickets', {
+      let tickets = await axios.post(`${process.env.REACT_APP_SERVER}/api/getTickets`, {
         [value[0]]: value[1]
       });
 

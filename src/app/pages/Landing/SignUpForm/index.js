@@ -26,7 +26,7 @@ export default class SignUp extends Component {
     event.preventDefault();
     const { email, password, firstName, lastName } = this.state
 
-    Axios.post(`http://localhost:5000/api/users/`,
+    Axios.post(`${process.env.REACT_APP_SERVER}/api/users/`,
       {
         email: email,
         firstName: firstName,
