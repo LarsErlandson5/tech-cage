@@ -6,7 +6,8 @@ import {
   Table,
   Container,
   Row,
-  Col
+  Col,
+  Spinner
 } from 'react-bootstrap'
 import axios from 'axios'
 import Ticket from './Ticket'
@@ -25,7 +26,19 @@ export default class TicketListPage extends React.Component {
   getTickets = async () => {
     let tickets = await axios.get('http://localhost:3001/api/getTickets');
 
-    this.setState({ tickets: tickets.data })
+    this.setState({ tickets: tickets.data });
+  }
+
+  filter = async (event) => {
+    if (event.key === 'Enter') {
+      const value = event.target.value.split(':');
+
+      let tickets = await axios.post('http://localhost:3001/api/getTickets', {
+        [value[0]]: value[1]
+      });
+
+      this.setState({ tickets: tickets.data });
+    }
   }
 
   render() {
@@ -54,6 +67,7 @@ export default class TicketListPage extends React.Component {
                   placeholder="filter"
                   aria-label="filter"
                   aria-describedby="filter"
+                  onKeyPress={this.filter}
                 />
               </InputGroup>
 
@@ -67,7 +81,7 @@ export default class TicketListPage extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  <Ticket tickets={this.state.tickets} />
+                  {this.state.tickets.length < 0 ? <Spinner animation="border" /> : <Ticket tickets={this.state.tickets} />}
                 </tbody>
               </Table>
             </Col>

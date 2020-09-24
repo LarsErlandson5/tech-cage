@@ -32,6 +32,16 @@ app.get('/api/getTickets', (req, res, next) => {
   });
 });
 
+app.post('/api/getTickets', (req, res, next) => {
+  Ticket.find(req.body, function (err, docs) {
+    if (err) {
+      next(err);
+    } else {
+      res.send(docs);
+    }
+  });
+});
+
 app.post('/api/createTicket', (req, res, next) => {
   Ticket.create(req.body, (err, ticket) => {
     if (err) {
