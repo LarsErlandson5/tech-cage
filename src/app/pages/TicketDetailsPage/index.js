@@ -7,7 +7,8 @@ import {
   Container,
   Row,
   Col,
-  Button
+  Button,
+  Image
 } from 'react-bootstrap'
 import qr_code from '../../images/qr_code.png'
 
@@ -59,6 +60,7 @@ export default class TicketDetailsPage extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return this.state.ticket.hasOwnProperty('station')
       ? <div>
         <Container>
@@ -98,6 +100,11 @@ export default class TicketDetailsPage extends React.Component {
                 <Form.Group controlId="formRepair">
                   <Form.Label>Repair</Form.Label>
                   <Form.Control as="textarea" rows="5" />
+                </Form.Group>
+
+                <Form.Group controlId="image">
+                  <Form.Label>Image</Form.Label>
+                  <Image src={this.state.ticket.image} rounded />
                 </Form.Group>
 
                 <Container>

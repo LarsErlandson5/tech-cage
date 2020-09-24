@@ -76,7 +76,7 @@ export default class CreateTicketPage extends React.Component {
         station: this.state.station,
         priority: parseInt(this.state.priority),
         description: this.state.description,
-        image: null
+        image: this.state.image
       });
 
       this.props.history.push(`/TicketList`);
