@@ -28,7 +28,7 @@
     "app": "react-scripts start",
     "server": "nodemon ./src/server",
     "lint": "eslint",
-    "serve": "npm run build && npx serve -s"
+    "serve": "npx serve -s"
   },
   "browserslist": {
     "production": [
