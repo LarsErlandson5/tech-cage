@@ -27,8 +27,7 @@
     "eject": "react-scripts eject",
     "app": "react-scripts start",
     "server": "nodemon ./src/server",
-    "lint": "eslint",
-    "serve": "npx serve -s"
+    "lint": "eslint"
   },
   "browserslist": {
     "production": [
