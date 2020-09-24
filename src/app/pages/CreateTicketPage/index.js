@@ -49,6 +49,21 @@ export default class CreateTicketPage extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  handleImage = (event) => {
+    let file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  handleReaderLoaded = (readerEvent) => {
+    let binaryString = readerEvent.target.result;
+    this.setState({ image: `data:image/png;base64,${btoa(binaryString)}` });
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -60,7 +75,8 @@ export default class CreateTicketPage extends React.Component {
         line: this.state.line,
         station: this.state.station,
         priority: parseInt(this.state.priority),
-        description: this.state.description
+        description: this.state.description,
+        image: null
       });
 
       this.props.history.push(`/TicketList`);
@@ -161,6 +177,17 @@ export default class CreateTicketPage extends React.Component {
                     required
                   />
                   <Form.Control.Feedback type="invalid">Please enter a description.</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId="image">
+                  <Form.Label>Image Upload</Form.Label>
+                  <Form.File
+                    name="image"
+                    label="File"
+                    accept=".jpeg, .png, .jpg"
+                    onChange={this.handleImage}
+                    custom
+                  />
                 </Form.Group>
 
                 <Button variant="primary" type="submit">Submit</Button>

@@ -8,8 +8,8 @@ const ticketSchema = new mongoose.Schema({
   repairDescription: { type: String },
   createdDate: { type: Date, required: true, default: Date },
   lastUpdatedDate: { type: Date, required: true, default: Date },
-  status: { type: String, default: 'Open' }
-
+  status: { type: String, default: 'Open' },
+  image: { type: String }
 });
 
 const Ticket = mongoose.model('Ticket', ticketSchema);
