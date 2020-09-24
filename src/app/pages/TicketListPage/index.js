@@ -60,7 +60,7 @@ export default class TicketListPage extends React.Component {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th>Ticket</th>
+                    <th>Station</th>
                     <th>Priority</th>
                     <th>Status</th>
                     <th>Last Update</th>
