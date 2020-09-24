@@ -3,9 +3,12 @@ import { Button, Modal } from 'react-bootstrap'
 
 export default class QRModal extends React.Component {
   render() {
+    if (!this.props.show) {
+      return null;
+    }
     return (
       <Modal
-        show={this.props.isDisplayed}
+        {...this.props}
         centered
       >
         <Modal.Header closeButton>
@@ -13,7 +16,7 @@ export default class QRModal extends React.Component {
         </Modal.Header>
         <Modal.Body>See if I can get the QR Code reader to appear in a modal</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleClose}>Close</Button>
+          <Button variant="secondary" onClick={this.props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     )

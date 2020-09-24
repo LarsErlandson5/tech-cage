@@ -7,17 +7,17 @@ import {
   Container,
   Row,
   Col,
-  Button,
-  Image
+  Button
 } from 'react-bootstrap'
-import qr_code from '../../images/qr_code.png'
+import ImageModal from '../../components/ImageModal'
 
 export default class TicketDetailsPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      ticket: {}
+      ticket: {},
+      showModal: false
     }
   }
 
@@ -37,6 +37,8 @@ export default class TicketDetailsPage extends React.Component {
 
   postSlackNotification = async (e) => {
     e.preventDefault();
+
+    this.notifyBtn.setAttribute('disabled', 'disabled');
 
     const { line, station, status, priority, description } = { ...this.state.ticket };
 
@@ -60,7 +62,6 @@ export default class TicketDetailsPage extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return this.state.ticket.hasOwnProperty('station')
       ? <div>
         <Container>
@@ -70,13 +71,8 @@ export default class TicketDetailsPage extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col style={{ margin: 'auto' }}>
+            <Col>
               <h4>Ticket Details</h4>
-            </Col>
-            <Col xs={4}>
-              <Button variant="outline-secondary" id="qr_code">
-                <img src={qr_code} alt={qr_code} />
-              </Button>
             </Col>
           </Row>
           <Row>
@@ -104,19 +100,19 @@ export default class TicketDetailsPage extends React.Component {
 
                 <Form.Group controlId="image">
                   <Form.Label>Image</Form.Label>
-                  <Image src={this.state.ticket.image} rounded />
+                  {this.state.ticket.image ? <Button variant="secondary" onClick={() => { this.setState({ showModal: true }) }}>Open Image</Button> : null}
+                  <ImageModal show={this.state.showModal} onHide={() => { this.setState({ showModal: false }) }} ticket={this.state.ticket} />
                 </Form.Group>
 
                 <Container>
                   <Row>
                     <Col>
-                      <Link to="/CreateTicket">
-                        <Button
-                          variant="primary"
-                          size="lg"
-                          onClick={this.postSlackNotification}
-                        >Notify TE</Button>
-                      </Link>
+                      <Button
+                        variant="primary"
+                        size="lg"
+                        onClick={this.postSlackNotification}
+                        ref={notifyBtn => { this.notifyBtn = notifyBtn; }}
+                      >Notify TE</Button>
                     </Col>
                     <Col>
                       <Link to="/Queue">

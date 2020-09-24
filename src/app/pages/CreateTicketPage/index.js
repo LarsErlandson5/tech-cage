@@ -90,7 +90,7 @@ export default class CreateTicketPage extends React.Component {
   render() {
     return this.state.hasOwnProperty('productionLines')
       ? <div>
-        <QRModal isDisplayed={this.state.showModal} /> {/* TODO: Fix issue after modal is loaded */}
+        <QRModal show={this.state.showModal} onHide={() => { this.setState({ showModal: false }) }} />
         <Container>
           <Row>
             <Col>
