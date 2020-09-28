@@ -115,7 +115,7 @@ export default class TicketDetailsPage extends React.Component {
                       >Notify TE</Button>
                     </Col>
                     <Col>
-                      <Link to="/Queue">
+                      <Link to="/TicketList">
                         <Button
                           variant="primary"
                           size="lg"
