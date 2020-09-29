@@ -17,7 +17,9 @@ export default class TicketListPage extends React.Component {
     super(props);
 
     this.state = {
-      tickets: []
+      tickets: [],
+      searchQuery: "",
+      searchResults: []
     }
 
     this.getTickets();
@@ -27,6 +29,7 @@ export default class TicketListPage extends React.Component {
     let tickets = await axios.get(`${process.env.REACT_APP_SERVER}/api/getTickets`);
 
     this.setState({ tickets: tickets.data });
+    this.setState({ searchResults: tickets.data })
   }
 
   filter = async (event) => {
@@ -39,6 +42,14 @@ export default class TicketListPage extends React.Component {
 
       this.setState({ tickets: tickets.data });
     }
+  }
+
+  search = (e) => {
+    console.log(e.target.value, 'test')
+    const results = this.state.tickets.filter(list =>
+      list.status.toLowerCase().includes(e.target.value.toLowerCase())
+    )
+    this.setState({ searchResults: results })
   }
 
   render() {
@@ -64,10 +75,11 @@ export default class TicketListPage extends React.Component {
                   </InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
-                  placeholder="filter"
+                  placeholder="Status"
                   aria-label="filter"
                   aria-describedby="filter"
-                  onKeyPress={this.filter}
+                  name="searchQuery"
+                  onChange={this.search}
                 />
               </InputGroup>
 
@@ -81,7 +93,7 @@ export default class TicketListPage extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.tickets.length < 0 ? <Spinner animation="border" /> : <Ticket tickets={this.state.tickets} />}
+                  {this.state.searchResults.length < 0 ? <Spinner animation="border" /> : <Ticket tickets={this.state.searchResults} />}
                 </tbody>
               </Table>
             </Col>
