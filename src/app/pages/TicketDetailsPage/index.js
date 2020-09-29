@@ -17,7 +17,8 @@ export default class TicketDetailsPage extends React.Component {
 
     this.state = {
       ticket: {},
-      showModal: false
+      showModal: false,
+      ticketId: new URLSearchParams(window.location.search).get('id')
     }
   }
 
@@ -59,6 +60,16 @@ export default class TicketDetailsPage extends React.Component {
     } else {
       alert('There was an error.  Please try again later.')
     }
+  }
+
+  updateStatus = async (e) => {
+    // alert(this.state.ticketId)
+    let res = await axios.put(`${process.env.REACT_APP_SERVER}/api/updateTicketStatus/${this.state.ticketId}`, {
+
+      status: 'Closed'
+
+    });
+    console.log(res)
   }
 
   render() {
@@ -119,6 +130,7 @@ export default class TicketDetailsPage extends React.Component {
                         <Button
                           variant="primary"
                           size="lg"
+                          onClick={this.updateStatus}
                         >Complete</Button>
                       </Link>
                     </Col>

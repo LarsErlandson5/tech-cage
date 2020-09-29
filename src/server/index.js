@@ -101,6 +101,13 @@ app.get('/api/getTestStations', (req, res, next) => {
   });
 });
 // TODO: /api/updateTicket (id, status, description, resolution)
+app.put('/api/updateTicketStatus/:ticketId', (req, res, next) => {
+  Ticket.findOneAndUpdate({ _id: req.params.ticketId }, { $set: req.body }, { upsert: true, new: true }, function (err, doc) {
+    if (err) return res.send(500, { error: err });
+    return res.send(doc);
+  })
+  // return res.send(req.body)
+});
 
 // TODO: /api/notify (used to notify TE via email[SMTP])
 
