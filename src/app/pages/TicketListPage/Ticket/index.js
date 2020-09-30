@@ -26,7 +26,7 @@ class Ticket extends React.Component {
           <td>{ticket.station}</td>
           <td>{ticket.priority}</td>
           <td>{ticket.status}</td>
-          <td>{ticket.lastUpdate}</td>
+          <td>{new Date(ticket.lastUpdatedDate).toLocaleString()}</td>
         </tr>
       )
     )
