@@ -63,13 +63,15 @@ export default class TicketDetailsPage extends React.Component {
   }
 
   updateStatus = async (e) => {
-    // alert(this.state.ticketId)
-    let res = await axios.put(`${process.env.REACT_APP_SERVER}/api/updateTicketStatus/${this.state.ticketId}`, {
-
+    await axios.put(`${process.env.REACT_APP_SERVER}/api/updateTicketStatus/${this.state.ticketId}`, {
+      repairDescription: this.state.repairDescription,
+      lastUpdatedDate: new Date(),
       status: 'Closed'
-
     });
-    console.log(res)
+  }
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
@@ -94,7 +96,7 @@ export default class TicketDetailsPage extends React.Component {
           <Row>
             <Col>
               <Form>
-                <Form.Group controlId="formDescription">
+                <Form.Group controlId="description">
                   <Form.Label>Description:</Form.Label>
                   <Form.Control
                     as="textarea"
@@ -104,9 +106,15 @@ export default class TicketDetailsPage extends React.Component {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="formRepair">
+                <Form.Group controlId="repairDescription">
                   <Form.Label>Repair</Form.Label>
-                  <Form.Control as="textarea" rows="5" />
+                  <Form.Control
+                    as="textarea"
+                    name="repairDescription"
+                    rows="5"
+                    value={this.state.ticket.repairDescription}
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
 
                 <Form.Group controlId="image">
