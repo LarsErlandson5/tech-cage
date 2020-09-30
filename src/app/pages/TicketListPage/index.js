@@ -26,7 +26,7 @@ export default class TicketListPage extends React.Component {
   async componentDidMount() {
     await this.getTickets();
     
-    this.setState({ searchResults: this.state.tickets.filter(ticket => ticket.status === 'Open') });
+    this.setState({ searchResults: this.state.tickets.filter(ticket => ticket.status === 'Open').sort((a, b) => a.priority + b.priority) });
   }
 
   getTickets = async () => {
