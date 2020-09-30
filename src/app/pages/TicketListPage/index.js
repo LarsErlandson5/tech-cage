@@ -18,11 +18,15 @@ export default class TicketListPage extends React.Component {
 
     this.state = {
       tickets: [],
-      searchQuery: "",
+      searchQuery: '',
       searchResults: []
     }
+  }
 
-    this.getTickets();
+  async componentDidMount() {
+    await this.getTickets();
+    
+    this.setState({ searchResults: this.state.tickets.filter(ticket => ticket.status === 'Open') });
   }
 
   getTickets = async () => {
@@ -44,12 +48,10 @@ export default class TicketListPage extends React.Component {
     }
   }
 
-  search = (e) => {
-    console.log(e.target.value, 'test')
-    const results = this.state.tickets.filter(list =>
-      list.status.toLowerCase().includes(e.target.value.toLowerCase())
-    )
-    this.setState({ searchResults: results })
+  search = (value) => {
+    let searchResults = this.state.tickets.filter(obj => Object.keys(obj).some(key => obj[key].toString().includes(value)));
+
+    this.setState({ searchResults });
   }
 
   render() {
@@ -79,7 +81,7 @@ export default class TicketListPage extends React.Component {
                   aria-label="filter"
                   aria-describedby="filter"
                   name="searchQuery"
-                  onChange={this.search}
+                  onChange={(e) => this.search(e.target.value)}
                 />
               </InputGroup>
 
