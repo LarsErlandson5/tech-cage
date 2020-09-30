@@ -74,7 +74,33 @@ export default class TicketDetailsPage extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  renderButtons() {
+    return this.state.ticket.status === 'Open' ? (
+      <Row>
+        <Col>
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={this.postSlackNotification}
+            ref={notifyBtn => { this.notifyBtn = notifyBtn; }}
+          >Notify TE</Button>
+        </Col>
+        <Col>
+          <Link to="/TicketList">
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={this.updateStatus}
+            >Complete</Button>
+          </Link>
+        </Col>
+      </Row>
+    ) : null
+  }
+
   render() {
+    const renderButtons = this.renderButtons();
+
     return this.state.ticket.hasOwnProperty('station')
       ? <div>
         <Container>
@@ -114,6 +140,7 @@ export default class TicketDetailsPage extends React.Component {
                     rows="5"
                     value={this.state.ticket.repairDescription}
                     onChange={this.handleChange}
+                    disabled={this.state.ticket.repairDescription || this.state.ticket.status === 'Closed'}
                   />
                 </Form.Group>
 
@@ -122,31 +149,10 @@ export default class TicketDetailsPage extends React.Component {
                   {this.state.ticket.image ? <Button variant="secondary" onClick={() => { this.setState({ showModal: true }) }}>Open Image</Button> : null}
                   <ImageModal show={this.state.showModal} onHide={() => { this.setState({ showModal: false }) }} ticket={this.state.ticket} />
                 </Form.Group>
-
-                <Container>
-                  <Row>
-                    <Col>
-                      <Button
-                        variant="primary"
-                        size="lg"
-                        onClick={this.postSlackNotification}
-                        ref={notifyBtn => { this.notifyBtn = notifyBtn; }}
-                      >Notify TE</Button>
-                    </Col>
-                    <Col>
-                      <Link to="/TicketList">
-                        <Button
-                          variant="primary"
-                          size="lg"
-                          onClick={this.updateStatus}
-                        >Complete</Button>
-                      </Link>
-                    </Col>
-                  </Row>
-                </Container>
               </Form>
             </Col>
           </Row>
+          {renderButtons}
         </Container>
       </div>
       : null
