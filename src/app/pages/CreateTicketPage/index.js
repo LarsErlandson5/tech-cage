@@ -27,7 +27,8 @@ export default class CreateTicketPage extends React.Component {
 
   componentDidMount = async () => {
     let productionLines = await axios.get(`${process.env.REACT_APP_SERVER}/api/getProductionLines`);
-    this.setState({ productionLines: productionLines.data });
+    let stations = await axios.get(`${process.env.REACT_APP_SERVER}/api/getStations`);
+    this.setState({ productionLines: productionLines.data, stations: stations.data });
   }
 
 
@@ -48,6 +49,8 @@ export default class CreateTicketPage extends React.Component {
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
+
+  //TODO: handle production line - narrow down stations list based on production line
 
   handleImage = (event) => {
     let file = event.target.files[0];
@@ -143,9 +146,11 @@ export default class CreateTicketPage extends React.Component {
                     required
                   >
                     <option value=''>Select Station...</option>
-                    <option value='a1'>A1</option>
-                    <option value='b2'>B2</option>
-                    <option value='c3'>C3</option>
+                    {this.state.stations.map((station) =>
+                      <option key={station._id.toString()} value={station.Name}>
+                        {station.Name}
+                      </option>
+                    )}
                   </Form.Control>
                   <Form.Control.Feedback type="invalid">Please select a Station.</Form.Control.Feedback>
                 </Form.Group>
