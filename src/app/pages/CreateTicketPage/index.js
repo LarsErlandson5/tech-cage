@@ -27,7 +27,7 @@ export default class CreateTicketPage extends React.Component {
 
   componentDidMount = async () => {
     let productionLines = await axios.get(`${process.env.REACT_APP_SERVER}/api/getProductionLines`);
-    let stations = await axios.get(`${process.env.REACT_APP_SERVER}/api/getStations`);
+    let stations = await axios.get(`${process.env.REACT_APP_SERVER}/api/getTestStations`);
     this.setState({ productionLines: productionLines.data, stations: stations.data });
   }
 
