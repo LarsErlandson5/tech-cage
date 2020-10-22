@@ -30,16 +30,19 @@ export default class HomePage extends React.Component {
         </Row>
         <Row>
           <Col>
-            <Link to="/CreateTicket">
-              <Button variant="primary" size="lg">Create a Ticket</Button>
-            </Link>
-          </Col>
-          <Col>
             <Link to="/TicketList">
-              <Button variant="primary" size="lg">List Tickets</Button>
+              <Button variant="info" size="lg">List Tickets</Button>
             </Link>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <Link to="/CreateTicket">
+              <Button variant="danger" size="lg">Create a Ticket</Button>
+            </Link>
+          </Col>
+        </Row>
+       
       </Container>
     )
   }
